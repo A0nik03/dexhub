@@ -38,9 +38,9 @@ const MediaSection = ({ data, title, logo, funct, sender }) => {
             {title}
           </h1>
 
-          <div className="flex justify-center items-center">
+          <div className="w-96 flex justify-end items-center ">
             {switchh && (
-              <div className="flex items-center opacity-100 transition-opacity duration-300">
+              <div className="flex w-full items-center opacity-100 transition-opacity duration-300">
                 <i className={`mr-4 text-2xl text-yellow-500 ri-star-fill`}></i>
                 <Slider
                   min={0}
