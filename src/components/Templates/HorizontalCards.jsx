@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import assets from "../../assets/assets";
 import { Link } from "react-router-dom";
+import { PacmanLoader } from "react-spinners";
 
-const HorizontalCards = ({ data }) => {
+const HorizontalCards = ({ data, title,sender }) => {
   const containerRef = useRef(null);
 
   const scrollRight = () => {
@@ -17,9 +18,11 @@ const HorizontalCards = ({ data }) => {
     }
   };
 
+  
+
   return (
     <div className="relative w-full mb-5 p-5">
-      {/* Left scroll button */}
+
       <div
         style={{
           background: "rgba(0, 0, 0, 0.7)",
@@ -30,7 +33,6 @@ const HorizontalCards = ({ data }) => {
         <i className="text-4xl text-white ri-arrow-left-wide-line"></i>
       </div>
 
-      {/* Right scroll button */}
       <div
         style={{
           background: "rgba(0, 0, 0, 0.7)",
@@ -41,47 +43,56 @@ const HorizontalCards = ({ data }) => {
         <i className="text-4xl text-white ri-arrow-right-wide-line"></i>
       </div>
 
-      {/* Cards container with smooth scroll */}
       <div
-        className="flex overflow-x-auto scrollbar-hide scroll-smooth"
+        className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth"
         ref={containerRef}
       >
         {data.length > 0 ? (
           data.map((d, i) => (
             <Link
-              to={`/${d.media_type}/details/${d.id}`}
               key={i}
-              className="min-w-[18%] h-[48vh] bg-zinc-900 mr-5 mb-5 rounded-md overflow-hidden transition-all duration-200"
+              to={`/${d.media_type || sender}/details/${d.id}`}
+              className="min-w-[14%] h-[55vh]"
             >
-              <img
-                className="w-full h-[55%] object-cover"
-                src={
-                  d.backdrop_path || d.poster_path
-                    ? `https://image.tmdb.org/t/p/original/${
-                        d.backdrop_path || d.poster_path
-                      }`
-                    : `${assets.noimage}`
-                }
-                alt="Media Thumbnail"
-              />
-              <div className="h-[45%] text-white p-3 text-justify overflow-hidden overflow-y-auto">
-                <h1 className="mb-2 text-xl font-semibold leading-none tracking-tighter">
-                  {d.title || d.name || d.original_name || d.original_title}
-                </h1>
-                <p className="text-sm leading-2 tracking-tighter">
-                  {d.overview.slice(0, 90)}...
-                  <span className="text-blue-400">more</span>
-                </p>
+              <div
+                key={i}
+                className="h-[75%] bg-zinc-900 rounded-lg overflow-hidden transition-all duration-200"
+              >
+                <img
+                  className="w-full h-full object-cover"
+                  src={
+                    d.poster_path || d.backdrop_path
+                      ? `https://image.tmdb.org/t/p/original/${
+                          d.poster_path || d.backdrop_path
+                        }`
+                      : `${assets.noimage}`
+                  }
+                  alt="Media Thumbnail"
+                />
+              </div>
+              <h1 className="mt-8 text-[1.23rem] text-white font-semibold leading-none whitespace-nowrap">
+                {(d.name || d.title || d.original_name).length > 19
+                  ? (d.name || d.title || d.original_name).slice(0, 19) + "..."
+                  : d.name || d.title || d.original_name}
+              </h1>
+              <div className="mt-3 text-sm text-zinc-500 font-bold flex justify-between items-center">
+              <p>{(d.first_air_date || d.release_date)?.split("-")[0] || "N/A"}</p>
+                <div className="flex gap-4 items-center">
+                  <i className="text-zinc-500 ri-heart-fill cursor-pointer"></i>
+                  <i className="text-[#dc1623] ri-eye-fill"></i>
+
+                  <span className="text-yellow-500">
+                    <i className="text-yellow-500 ri-star-fill mr-2"></i>
+                    {d.vote_average.toPrecision(2)}
+                  </span>
+                </div>
               </div>
             </Link>
           ))
         ) : (
-          <h1
-            className="
-        text-3xl font-black mt-5 text-white"
-          >
-            Nothing to Show
-          </h1>
+          <div className="w-full h-full flex justify-center items-center">
+          <PacmanLoader color="#dc1623" />
+          </div>
         )}
       </div>
     </div>

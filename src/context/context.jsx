@@ -6,16 +6,18 @@ const MovieContextProvider = (props) => {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState([]);
   const [wallpaper, setWallpaper] = useState(null);
+  const [activeSearch, setActiveSearch] = useState(true);
   const [trending, setTrending] = useState([]);
   const [popular, setPopular] = useState([]);
   const [movie, setMovie] = useState([]);
   const [tv, setTv] = useState([]);
-  const [category, setCategory] = useState("movie");
-  const [type_Movie, setType_Movie] = useState("popular");
-  const [type_Tv, setType_Tv] = useState("top_rated");
+  const [category, setCategory] = useState("all");
+  const [type_Movie, setType_Movie] = useState("now_playing");
+  const [type_Tv, setType_Tv] = useState("on_the_air");
   const [duration, setDuration] = useState("day");
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
+  const [travel, setTravel] = useState(0)
 
   const GetSearches = async () => {
     if (!query) return;
@@ -44,8 +46,7 @@ const MovieContextProvider = (props) => {
         `trending/${category}/${duration}?page=${page}`
       );
       if (data.results.length > 0) {
-        setTrending((prevState) => [...prevState, ...data.results]);
-        setPage(page + 1);
+        setTrending(data.results);
       } else {
         setHasMore(false);
       }
@@ -56,10 +57,9 @@ const MovieContextProvider = (props) => {
 
   const GetPopular = async () => {
     try {
-      const { data } = await axios.get(`${category}/popular?page=${page}`);
+      const { data } = await axios.get(`${category == "all" ? "movie" : category}/popular?page=${page}`);
       if (data.results.length > 0) {
-        setPopular((prevState) => [...prevState, ...data.results]);
-        setPage(page + 1);
+        setPopular(data.results);
       } else {
         setHasMore(false);
       }
@@ -71,9 +71,9 @@ const MovieContextProvider = (props) => {
   const GetMovie = async () => {
     try {
       const { data } = await axios.get(`movie/${type_Movie}?page=${page}`);
+      console.log(`movie/${type_Movie}?page=${page}`)
       if (data.results.length > 0) {
-        setMovie((prevState) => [...prevState, ...data.results]);
-        setPage(page + 1);
+        setMovie(data.results)
       } else {
         setHasMore(false);
       }
@@ -86,8 +86,8 @@ const MovieContextProvider = (props) => {
       const { data } = await axios.get(`tv/${type_Tv}?page=${page}`);
 
       if (data.results.length > 0) {
-        setTv((prevState) => [...prevState, ...data.results]);
-        setPage(page + 1);
+        setTv(data.results);
+
       } else {
         setHasMore(false);
       }
@@ -136,6 +136,7 @@ const MovieContextProvider = (props) => {
     }
   };
 
+
   useEffect(() => {
     GetSearches();
     !wallpaper && GetWallpaper();
@@ -181,7 +182,13 @@ const MovieContextProvider = (props) => {
     GetMovie,
     GetTv,
     tv,
-    setTv
+    setTv,
+    activeSearch,
+    setActiveSearch,
+    setPage,
+    page,
+    travel,
+    setTravel
   };
 
   return (

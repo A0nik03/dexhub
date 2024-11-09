@@ -9,7 +9,7 @@ import TopNav from "./Templates/TopNav";
 
 const Movies = () => {
   const navigate = useNavigate();
-  const { movie, type_Movie,setType_Movie, GetMovie, hasMore } =
+  const { movie,setType_Movie, GetMovie, hasMore } =
     useContext(MovieContext);
   document.title = "DexHub | Movies ";
   const [title, seTitle] = useState("Now Playing");
@@ -19,7 +19,7 @@ const Movies = () => {
         <h1 className="w-[15%] text-2xl text-zinc-400 font-semibold">
           <i
             onClick={() => navigate(-1)}
-            className="hover:text-[#6556cd] mr-2 ri-arrow-left-line"
+            className="hover:text-[#dc1624] mr-2 ri-arrow-left-line"
           ></i>
           Movies
         </h1>

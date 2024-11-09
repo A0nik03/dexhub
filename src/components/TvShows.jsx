@@ -12,6 +12,7 @@ const Tv = () => {
   const { tv, type_Tv,setType_Tv, GetTv, hasMore } =
     useContext(MovieContext);
   document.title = "DexHub | Tv ";
+  console.log(tv);
   const [title, seTitle] = useState("Now Airing");
   return tv.length > 0 ? (
     <div className="w-screen h-screen">

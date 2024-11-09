@@ -23,7 +23,7 @@ const Trailer = () => {
       )}
       <Link
         onClick={() => navigate(-1)}
-        className="absolute hover:text-[#6556cd] mr-2 ri-close-fill text-4xl text-white right-[11%] top-[26%]"
+        className="absolute hover:text-[#dc1623] mr-2 ri-close-fill text-4xl text-white right-[11%] top-[26%]"
       ></Link>
     </div>
   );

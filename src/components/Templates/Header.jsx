@@ -15,32 +15,39 @@ const Header = ({ wallpaper }) => {
             : `${assets.noimage}`
         })`,
         backgroundPosition: "center",
+        backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
       }}
-      className="w-full h-[50vh] flex flex-col justify-end items-start p-10"
+      className="w-full h-full flex flex-col justify-center items-start pl-40 pt-24"
     >
-      <h1 className="w-[70%] text-zinc-300 text-4xl font-bold shadow-2xl">
+      <h1 className="w-[70%] text-zinc-200 text-6xl font-bold shadow-6xl">
         {wallpaper.title || wallpaper.name || wallpaper.original_title}
       </h1>
-      <p className="w-[70%] mt-3 text-white">
-        {wallpaper.overview.slice(0, 200)}...<Link to={`/${wallpaper.media_type}/details/${wallpaper.id}`} className="text-[#6556cd]">more</Link>
+      <p className="w-[52%] mt-16 text-white font-semibold text-[1.1rem]">
+        {wallpaper.overview.slice(0, 202)}...
+        <Link
+          to={`/${wallpaper.media_type}/details/${wallpaper.id}`}
+          className="text-[#dc1623]"
+        >
+          continue reading
+        </Link>
       </p>
       <div className="flex mb-3">
-        <p className="text-white mt-2 mr-5 font-medium">
-          <i className="text-xl text-yellow-400 mr-1 ri-logout-circle-r-fill shadow-md"></i>
-          {wallpaper.release_date || "No Information"}
+        <p className="text-white mt-5 mr-5 font-medium text-[1.2rem]">
+          <i className="mr-2 text-2xl shadow-md text-yellow-400 ri-calendar-fill"></i>
+          {wallpaper.first_air_date || wallpaper.release_date || "No Information"}
         </p>
-        <p className="text-white mt-2 capitalize font-medium">
-          <i className="text-xl text-yellow-400 mr-1 ri-movie-2-fill shadow-md">
-            {" "}
-          </i>
-          {wallpaper.media_type}
+        <p className="text-white mt-5 capitalize font-medium text-[1.2rem]">
+          <i className="text-2xl text-yellow-400 mr-2 ri-movie-fill shadow-md"></i>
+          {wallpaper.media_type.toUpperCase()}
         </p>
       </div>
-      <Link to = {`/${wallpaper.media_type || title}/details/${wallpaper.id}`} className="bg-[#6556cd] hover:bg-[#4332b4] p-4 text-white rounded-md font-semibold">
-        Watch Trailer
+      <Link
+        to={`/${wallpaper.media_type || title}/details/${wallpaper.id}`}
+        className="bg-[#dc1623] hover:scale-[1.05] hover:shadow-lg px-8 py-3 text-white rounded-full font-semibold mt-10"
+      >
+        <i className="mr-2 ri-play-large-fill"></i>Watch Trailer
       </Link>
     </div>
   );

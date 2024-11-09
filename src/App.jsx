@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "./components/Home";
+import Home from "./components/Pages/Home";
 import { Route, Routes } from "react-router-dom";
 import LocomotiveScroll from "locomotive-scroll";
 import Trending from "./components/Trending";
@@ -14,12 +14,12 @@ import NotFound from "./components/NotFound";
 const App = () => {
   const locomotiveScroll = new LocomotiveScroll();
   return (
-    <div className="w-screen h-screen bg-[#1F1E24] flex">
+    <div className="w-screen h-screen bg-[#16151a] flex font-[satoshi]">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/trending" element={<Trending />} />
-        <Route path="/popular" element={<Popular />} />
-        <Route path="/movie" element={<Movies />} />
+        <Route path="#trending" element={<Trending />} />
+        <Route path="#popular" element={<Popular />} />
+        <Route path="#movie" element={<Movies />} />
         <Route path="/movie/details/:id" element={<MovieDetails />}>
           <Route path="/movie/details/:id/trailer" element={<Trailer />} />
         </Route>
