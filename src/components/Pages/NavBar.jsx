@@ -58,7 +58,7 @@ const NavBar = () => {
         </div>
         <div className="mr-28 flex gap-10 justify-center items-center">
 
-          <div className={`relative ${searchButton ? 'w-96' : 'w-0'} transition-all duration-500`}>
+          <div className={`relative ${searchButton ? 'w-80' : 'w-0'} transition-all duration-500`}>
             {searchButton && (
               <input
                 onChange={(e) => setQuery(e.target.value)}
